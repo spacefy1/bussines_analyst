@@ -7,7 +7,7 @@ def computador_escolhe_jogada (n, m):
     #partida
 
     # se o resto da divisao NAO for 0, o computador tira
-    # o MAXIMO de m :_)
+    # o MAXIMO possivel de m :_)
 
     if x != 0:
         n -= m
@@ -19,8 +19,9 @@ def computador_escolhe_jogada (n, m):
         return m
 
 def usuario_escolhe_jogada(n, m):
-    #este laço devolve
 
+    # tive que usar o try-except, pois permite repetir o laço
+    # se algum valor entrar no except (antes o programa parava)
     while True:
         try:
             x = int(input("\nQuantas peças você vai tirar? "))
@@ -48,7 +49,9 @@ def partida():
 
     while n > 0:
         if turno == 'jogador':
-            # Chame a função do jogador
+            # chame a função do jogador com uma variavel recebendo o
+            # valor de return da funçao usuario_escolhe_jogada
+
             pecas_tiradas = usuario_escolhe_jogada (n, m)
             n -= pecas_tiradas
 
@@ -57,13 +60,19 @@ def partida():
             else:
                 print(f"Você retirou uma peça.")
 
+            # o corretor difere e da nota baseado nos prints, portanto
+            # tenho que diferir se sobrar um ou mais do que um
             if n > 1:
                 print(f"Agora restam {n} peças no tabuleiro.\n")
             elif n == 1:
                 print(f"Agora restam uma peça no tabuleiro.\n")
             else:
                 print("Fim do jogo! Você ganhou!")
-            turno = 'computador'  # Passa o turno para o computador
+
+            #permite trocar os turnos, ao chamar pela funcao
+            #o programa dava timeoout :(
+
+            turno = 'computador'
         else:
             pecas_tiradas = computador_escolhe_jogada(n, m)
             n -= pecas_tiradas
@@ -91,6 +100,7 @@ def campeonato():
 
     if flag == 1:
         print("**** Final do campeonato! ****")
+
         # nao consegui uma forma de solucionar as vitorias e derrotas de cada,
         # porem presumi que o computador sempre ganha :)
 
